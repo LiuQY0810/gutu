@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F0D0A">
+<title>沈家老屋 · 故土罗盘</title>
+<style>
+  :root{
+    --bg:#0F0D0A; --panel:#16130E; --line:#2B251D;
+    --ink:#E8E0D2; --dim:#9A9081; --gold:#D9B84A;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
+  body{
+    font:16px/1.9 "PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+
+  /* ---------- 头部 ---------- */
+  header{padding:26px 0 0}
+  .kicker{
+    font-size:12px;letter-spacing:.22em;color:var(--gold);
+    display:flex;align-items:center;gap:10px;
+  }
+  .kicker::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .hero{
+    width:100%;display:block;margin:18px 0 0;border-radius:10px;
+    border:1px solid var(--line);filter:saturate(.92) brightness(.94);
+  }
+  .tag{
+    display:inline-block;margin:22px 0 0;padding:4px 10px;
+    font-size:12px;letter-spacing:.1em;color:#2A2413;
+    background:var(--gold);border-radius:3px;
+  }
+  h1{
+    font-family:"Songti SC","SimSun",serif;
+    font-size:38px;line-height:1.25;margin:14px 0 6px;letter-spacing:.04em;
+  }
+  .geo{font-size:13px;color:var(--dim);margin:0}
+
+  /* ---------- 章节 ---------- */
+  section{margin:38px 0 0}
+  h2{
+    font-family:"Songti SC","SimSun",serif;
+    font-size:19px;margin:0 0 14px;letter-spacing:.12em;font-weight:600;
+    display:flex;align-items:center;gap:10px;
+  }
+  h2::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ---------- 故事 ---------- */
+  .story p{margin:0 0 18px}
+  .story p:first-child::first-letter{
+    font-family:"Songti SC","SimSun",serif;
+    font-size:44px;line-height:1;float:left;
+    padding:4px 8px 0 0;color:var(--gold);
+  }
+
+  /* ---------- 声音档案 ---------- */
+  .audio-card{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:18px 18px 14px;
+  }
+  .audio-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  .pulse{
+    width:44px;height:44px;flex:0 0 44px;border-radius:50%;
+    border:1px solid var(--gold);position:relative;display:grid;place-items:center;
+  }
+  .pulse::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--gold)}
+  .pulse::after{
+    content:"";position:absolute;inset:0;border-radius:50%;
+    border:1px solid var(--gold);opacity:.5;
+    animation:ring 2.4s ease-out infinite;
+  }
+  @keyframes ring{from{transform:scale(1);opacity:.5}to{transform:scale(1.5);opacity:0}}
+  @media (prefers-reduced-motion:reduce){.pulse::after{animation:none}}
+  .audio-meta{font-size:13px;color:var(--dim);line-height:1.6}
+  .audio-meta b{display:block;color:var(--ink);font-size:15px;font-weight:600;letter-spacing:.04em}
+  audio{width:100%;height:40px;display:block;filter:invert(.92) hue-rotate(180deg)}
+  .transcript{
+    margin:12px 0 0;font-size:14px;color:var(--dim);
+    border-left:2px solid var(--line);padding-left:12px;
+  }
+  .missing{font-size:13px;color:var(--dim);margin:10px 0 0}
+
+  /* ---------- 时间线 ---------- */
+  ol.timeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:1px solid var(--line)}
+  ol.timeline li{position:relative;padding:0 0 20px 18px}
+  ol.timeline li::before{
+    content:"";position:absolute;left:-5px;top:9px;width:9px;height:9px;
+    border-radius:50%;background:var(--gold);
+  }
+  ol.timeline li:last-child{padding-bottom:0}
+  .t-year{font-size:13px;color:var(--gold);letter-spacing:.08em}
+  .t-body{font-size:15px;margin-top:2px}
+
+  /* ---------- 档案 ---------- */
+  dl.facts{
+    margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:14px;
+  }
+  dl.facts dt{color:var(--dim);white-space:nowrap}
+  dl.facts dd{margin:0}
+
+  /* ---------- 附近 ---------- */
+  ul.near{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  ul.near li{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:12px 14px;font-size:15px;
+  }
+  ul.near li span{display:block;font-size:12px;color:var(--dim);margin-top:2px;letter-spacing:.06em}
+
+  footer{
+    margin:44px 0 0;padding:22px 0 40px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--dim);letter-spacing:.06em;
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  }
+  footer b{color:var(--gold);font-weight:600;letter-spacing:.14em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">故土罗盘 · 锚点 01</div>
+    <img class="hero" src="assets/hero.jpg" alt="沈家老屋天井与八仙桌">
+    <span class="tag">古厝 · 民国</span>
+    <h1>沈家老屋</h1>
+    <p class="geo">北纬 28.200104 · 东经 112.900331</p>
+  </header>
+
+  <section class="story">
+    <p>天井里的青石板被雨水磨得发亮。灶屋的柴火味还在，堂屋正中那张八仙桌，四条腿已经换过两条。</p>
+    <p>面阔三间、进深两进，穿斗式木构，小青瓦屋面。2019 年落架修缮过一次，梁架与柱础仍是原构件。</p>
+  </section>
+
+  <!-- ============ 声音档案 ============
+       录音放到 assets/audio/story.m4a（或 .mp3），两块都支持。
+       文件不存在时，这一整块会自动隐藏（见页尾脚本），不会出现破图/破播放器。 -->
+  <section id="audio-block">
+    <h2>声音档案</h2>
+    <div class="audio-card">
+      <div class="audio-head">
+        <div class="pulse" aria-hidden="true"></div>
+        <div class="audio-meta">
+          <b>天井里的那些年</b>
+          村中长者口述 · 方言 · 约 1 分钟
+        </div>
+      </div>
+      <audio id="story-audio" controls preload="metadata">
+        <source src="assets/audio/story.m4a" type="audio/mp4">
+        <source src="assets/audio/story.mp3" type="audio/mpeg">
+      </audio>
+      <p class="transcript" id="transcript">
+        “那时候一大家子十几口人，天井里摆两张桌子吃饭，落雨天就坐在廊下看檐水……”
+      </p>
+      <p class="missing" id="audio-missing" hidden>录音还没放进来（<code>assets/audio/story.m4a</code>）。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>时间线</h2>
+    <ol class="timeline">
+      <li>
+        <div class="t-year">民国</div>
+        <div class="t-body">建成，面阔三间、进深两进，穿斗式木构。</div>
+      </li>
+      <li>
+        <div class="t-year">2019-11</div>
+        <div class="t-body">落架修缮一次，梁架与柱础仍是原构件；同月建档。</div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>档案</h2>
+    <dl class="facts">
+      <dt>类别</dt><dd>01 · 古厝</dd>
+      <dt>年代</dt><dd>民国</dd>
+      <dt>建档</dt><dd>2019-11</dd>
+      <dt>结构</dt><dd>穿斗式木构 · 小青瓦屋面</dd>
+      <dt>坐标</dt><dd>28.200104 N，112.900331 E</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>附近还有</h2>
+    <ul class="near">
+      <li>周氏祠堂<span>锚点 02 · 宗祠</span></li>
+      <li>村口樟树<span>锚点 03 · 古树</span></li>
+      <li>晒谷坪<span>锚点 04 · 场地</span></li>
+      <li>水碓房<span>锚点 05 · 作坊</span></li>
+      <li>外婆的菜园<span>锚点 06 · 园地</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span><b>故土罗盘</b> · 乡村记忆导航</span>
+    <span>扫码于装置现场</span>
+  </footer>
+
+</div>
+
+<script>
+  // 录音没放进来时：藏掉播放器、显示一行提示，版式不至于塌
+  (function () {
+    var a = document.getElementById('story-audio');
+    var miss = document.getElementById('audio-missing');
+    if (!a || !miss) return;
+    a.addEventListener('error', function () {
+      a.hidden = true;
+      miss.hidden = false;
+    }, true);
+    a.addEventListener('loadedmetadata', function () {
+      miss.hidden = true;
+    });
+  })();
+</script>
+</body>
+</html>
