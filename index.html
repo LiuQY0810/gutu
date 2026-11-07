@@ -147,6 +147,7 @@
 
   /* ---------- 到这儿来 ---------- */
   .come{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .wgs{font-size:11px;color:var(--dim);margin-left:10px;letter-spacing:.08em}
   .coord{
     font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
     font-size:14px;color:var(--gold);letter-spacing:.02em;
@@ -209,7 +210,7 @@
     <img class="hero" src="assets/hero.jpg" alt="沈家老屋天井与八仙桌" data-zoom>
     <span class="tag">古厝 · 民国</span>
     <h1>沈家老屋</h1>
-    <p class="geo">北纬 28.200104 · 东经 112.900331</p>
+    <p class="geo">北纬 28.170700 · 东经 112.931650</p>
     <p class="lede">天井里那道光，是这屋子里唯一还在走的东西。</p>
   </header>
 
@@ -304,7 +305,7 @@
       <dt>建档</dt><dd>2019-11</dd>
       <dt>结构</dt><dd>穿斗式木构 · 小青瓦屋面 · 面阔三间、进深两进</dd>
       <dt>现状</dt><dd>空置，梁架柱础为原构件，屋面局部更换</dd>
-      <dt>坐标</dt><dd>28.200104 N，112.900331 E</dd>
+      <dt>坐标</dt><dd>28.170700 N，112.931650 E</dd>
     </dl>
   </section>
 
@@ -332,12 +333,19 @@
 
   <section>
     <h2><span class="n">07</span>到这儿来</h2>
-    <div class="come">
-      <div class="coord">28.200104 N　112.900331 E</div>
+    <div class="come" data-lat="28.170700" data-lng="112.931650">
+      <div class="coord">28.170700 N　112.931650 E<span class="wgs">WGS-84</span></div>
       <p id="dist">正对巷口那扇半开的木门。走到门口，屏幕会响一声「你已到达，沈家老屋」。</p>
       <div class="btns">
-        <a class="btn solid" href="https://uri.amap.com/marker?position=112.900331,28.200104&name=%E6%B2%88%E5%AE%B6%E8%80%81%E5%B1%8B" target="_blank" rel="noopener">高德地图</a>
-        <a class="btn" href="https://api.map.baidu.com/marker?location=28.200104,112.900331&title=%E6%B2%88%E5%AE%B6%E8%80%81%E5%B1%8B&content=%E6%95%85%E5%9C%9F%E7%BD%97%E7%9B%98%20%E9%94%9A%E7%82%B9%2001&output=html" target="_blank" rel="noopener">百度地图</a>
+        <a class="btn solid" id="nav-amap"
+           href="https://uri.amap.com/navigation?to=112.931650,28.170700,%E6%B2%88%E5%AE%B6%E8%80%81%E5%B1%8B&mode=car&coordinate=wgs84&callnative=1&src=gutu"
+           target="_blank" rel="noopener">高德导航</a>
+        <a class="btn" id="mark-amap"
+           href="https://uri.amap.com/marker?position=112.931650,28.170700&name=%E6%B2%88%E5%AE%B6%E8%80%81%E5%B1%8B&coordinate=wgs84&callnative=1&src=gutu"
+           target="_blank" rel="noopener">高德看位置</a>
+        <a class="btn" id="mark-baidu"
+           href="https://api.map.baidu.com/marker?location=28.170700,112.931650&title=%E6%B2%88%E5%AE%B6%E8%80%81%E5%B1%8B&content=%E6%95%85%E5%9C%9F%E7%BD%97%E7%9B%98%20%E9%94%9A%E7%82%B9%2001&coord_type=wgs84&output=html&src=gutu"
+           target="_blank" rel="noopener">百度地图</a>
       </div>
     </div>
   </section>
@@ -423,13 +431,15 @@
 
   // 如果浏览器允许定位，显示「你离这里多远」
   (function () {
+    var box = document.querySelector('.come');
     var p = document.getElementById('dist');
-    if (!p || !navigator.geolocation) return;
+    if (!box || !p || !navigator.geolocation) return;
+    var LAT = parseFloat(box.dataset.lat), LNG = parseFloat(box.dataset.lng);
     navigator.geolocation.getCurrentPosition(function (pos) {
       var R = 6371000;
       var toRad = function (d) { return d * Math.PI / 180; };
-      var la1 = toRad(pos.coords.latitude), la2 = toRad(28.200104);
-      var dLa = la2 - la1, dLo = toRad(112.900331 - pos.coords.longitude);
+      var la1 = toRad(pos.coords.latitude), la2 = toRad(LAT);
+      var dLa = la2 - la1, dLo = toRad(LNG - pos.coords.longitude);
       var a = Math.sin(dLa / 2) * Math.sin(dLa / 2) +
               Math.cos(la1) * Math.cos(la2) * Math.sin(dLo / 2) * Math.sin(dLo / 2);
       var d = 2 * R * Math.asin(Math.sqrt(a));
