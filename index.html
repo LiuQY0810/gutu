@@ -5,13 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F0D0A">
 <title>沈家老屋 · 故土罗盘</title>
+<meta name="description" content="沈家老屋：湖南湘南乡村的一座民国宅子。天井、八仙桌、柱础与它的一百年。">
 <style>
   :root{
-    --bg:#0F0D0A; --panel:#16130E; --line:#2B251D;
+    --bg:#0F0D0A; --panel:#16130E; --panel2:#1C1811; --line:#2B251D;
     --ink:#E8E0D2; --dim:#9A9081; --gold:#D9B84A;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
+  html{scroll-behavior:smooth}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}\n  body{overflow-x:hidden}
   body{
     font:16px/1.9 "PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -30,6 +32,7 @@
   .hero{
     width:100%;display:block;margin:18px 0 0;border-radius:10px;
     border:1px solid var(--line);filter:saturate(.92) brightness(.94);
+    cursor:zoom-in;
   }
   .tag{
     display:inline-block;margin:22px 0 0;padding:4px 10px;
@@ -41,23 +44,47 @@
     font-size:38px;line-height:1.25;margin:14px 0 6px;letter-spacing:.04em;
   }
   .geo{font-size:13px;color:var(--dim);margin:0}
+  .lede{
+    font-family:"Songti SC","SimSun",serif;
+    font-size:19px;line-height:1.8;color:#D8CEBB;
+    margin:20px 0 0;padding-left:14px;border-left:2px solid var(--gold);
+  }
 
   /* ---------- 章节 ---------- */
-  section{margin:38px 0 0}
+  section{margin:40px 0 0}
   h2{
     font-family:"Songti SC","SimSun",serif;
     font-size:19px;margin:0 0 14px;letter-spacing:.12em;font-weight:600;
     display:flex;align-items:center;gap:10px;
   }
   h2::after{content:"";flex:1;height:1px;background:var(--line)}
+  h2 .n{font-family:inherit;font-size:12px;color:var(--gold);letter-spacing:.1em;opacity:.85}
+
+  .note{
+    font-size:13px;color:var(--dim);background:var(--panel);
+    border:1px solid var(--line);border-left:2px solid var(--gold);
+    border-radius:6px;padding:10px 14px;margin:0 0 20px;
+  }
 
   /* ---------- 故事 ---------- */
   .story p{margin:0 0 18px}
-  .story p:first-child::first-letter{
+  .story p.p1::first-letter{
     font-family:"Songti SC","SimSun",serif;
     font-size:44px;line-height:1;float:left;
     padding:4px 8px 0 0;color:var(--gold);
   }
+
+  /* ---------- 细看 ---------- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:520px){.grid{grid-template-columns:1fr}}
+  figure{margin:0}
+  figure img{
+    width:100%;display:block;border-radius:8px;border:1px solid var(--line);
+    cursor:zoom-in;
+  }
+  figcaption{font-size:13px;color:var(--dim);margin-top:8px;line-height:1.7}
+  figcaption b{color:var(--ink);font-weight:600}
+  .wide{grid-column:1 / -1}
 
   /* ---------- 声音档案 ---------- */
   .audio-card{
@@ -78,46 +105,100 @@
   @keyframes ring{from{transform:scale(1);opacity:.5}to{transform:scale(1.5);opacity:0}}
   @media (prefers-reduced-motion:reduce){.pulse::after{animation:none}}
   .audio-meta{font-size:13px;color:var(--dim);line-height:1.6}
-  .audio-meta b{display:block;color:var(--ink);font-size:15px;font-weight:600;letter-spacing:.04em}
-  audio{width:100%;height:40px;display:block;filter:invert(.92) hue-rotate(180deg)}
+  .audio-meta b{display:block;color:var(--ink);font-size:15px;font-weight:600}
+  audio{width:100%;margin-top:4px}
   .transcript{
-    margin:12px 0 0;font-size:14px;color:var(--dim);
-    border-left:2px solid var(--line);padding-left:12px;
+    font-size:14px;color:#C6BCA9;line-height:1.9;
+    margin:12px 0 0;padding:12px 14px;background:var(--panel2);
+    border-radius:6px;border-left:2px solid var(--line);
   }
   .missing{font-size:13px;color:var(--dim);margin:10px 0 0}
 
   /* ---------- 时间线 ---------- */
-  ol.timeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:1px solid var(--line)}
-  ol.timeline li{position:relative;padding:0 0 20px 18px}
-  ol.timeline li::before{
-    content:"";position:absolute;left:-5px;top:9px;width:9px;height:9px;
-    border-radius:50%;background:var(--gold);
+  .timeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:1px solid var(--line)}
+  .timeline li{position:relative;padding:0 0 20px 20px}
+  .timeline li::before{
+    content:"";position:absolute;left:-5px;top:9px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--bg);border:1px solid var(--gold);
   }
-  ol.timeline li:last-child{padding-bottom:0}
+  .timeline li:last-child{padding-bottom:0}
   .t-year{font-size:13px;color:var(--gold);letter-spacing:.08em}
-  .t-body{font-size:15px;margin-top:2px}
+  .t-body{font-size:15px}
 
   /* ---------- 档案 ---------- */
-  dl.facts{
-    margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:14px;
-  }
-  dl.facts dt{color:var(--dim);white-space:nowrap}
-  dl.facts dd{margin:0}
+  .facts{margin:0}
+  .facts dt{font-size:12px;color:var(--dim);letter-spacing:.1em;margin-top:14px}
+  .facts dt:first-child{margin-top:0}
+  .facts dd{margin:2px 0 0;font-size:15px}
 
-  /* ---------- 附近 ---------- */
-  ul.near{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  ul.near li{
-    background:var(--panel);border:1px solid var(--line);border-radius:8px;
-    padding:12px 14px;font-size:15px;
+  /* ---------- 老物件 ---------- */
+  .objs{display:grid;gap:12px}
+  .obj{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:14px 16px;
   }
-  ul.near li span{display:block;font-size:12px;color:var(--dim);margin-top:2px;letter-spacing:.06em}
+  .obj h3{
+    margin:0 0 6px;font-size:15px;font-weight:600;letter-spacing:.06em;
+    display:flex;align-items:baseline;gap:8px;
+  }
+  .obj h3 span{font-size:11px;color:var(--gold);letter-spacing:.12em;font-weight:400}
+  .obj p{margin:0;font-size:14px;color:#CFC5B2;line-height:1.85}
 
+  /* ---------- 到这儿来 ---------- */
+  .come{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .coord{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:14px;color:var(--gold);letter-spacing:.02em;
+  }
+  .come p{font-size:14px;color:#CFC5B2;margin:10px 0 0}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .btn{
+    display:inline-block;padding:9px 16px;border-radius:999px;
+    font-size:14px;text-decoration:none;
+    border:1px solid var(--gold);color:var(--gold);
+    background:transparent;
+  }
+  .btn.solid{background:var(--gold);color:#2A2413;border-color:var(--gold)}
+
+  /* ---------- 周边 ---------- */
+  .near{list-style:none;margin:0;padding:0}
+  .near li{
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;
+  }
+  .near li:last-child{border-bottom:none}
+  .near span{font-size:12px;color:var(--dim);white-space:nowrap}
+  .near li.me{color:var(--gold)}
+  .near li.me span{color:var(--gold);opacity:.8}
+
+  /* ---------- 页脚 ---------- */
   footer{
-    margin:44px 0 0;padding:22px 0 40px;border-top:1px solid var(--line);
-    font-size:12px;color:var(--dim);letter-spacing:.06em;
+    margin:44px 0 0;padding:20px 0 40px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--dim);
     display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
   }
   footer b{color:var(--gold);font-weight:600;letter-spacing:.14em}
+
+  /* ---------- 图片放大 ---------- */
+  #lb{
+    position:fixed;inset:0;background:rgba(8,7,5,.96);display:none;
+    place-items:center;z-index:99;padding:16px;
+  }
+  #lb.on{display:grid}
+  #lb img{max-width:100%;max-height:88vh;border-radius:6px}
+  #lb .close{
+    position:absolute;top:14px;right:18px;font-size:26px;color:#CFC5B2;
+    background:none;border:none;cursor:pointer;line-height:1;
+  }
+
+  /* ---------- 回到顶部 ---------- */
+  #top{
+    position:fixed;right:16px;bottom:18px;width:42px;height:42px;border-radius:50%;
+    border:1px solid var(--line);background:rgba(22,19,14,.9);color:var(--gold);
+    font-size:16px;display:none;place-items:center;cursor:pointer;z-index:50;
+  }
+  #top.on{display:grid}
 </style>
 </head>
 <body>
@@ -125,22 +206,51 @@
 
   <header>
     <div class="kicker">故土罗盘 · 锚点 01</div>
-    <img class="hero" src="assets/hero.jpg" alt="沈家老屋天井与八仙桌">
+    <img class="hero" src="assets/hero.jpg" alt="沈家老屋天井与八仙桌" data-zoom>
     <span class="tag">古厝 · 民国</span>
     <h1>沈家老屋</h1>
     <p class="geo">北纬 28.200104 · 东经 112.900331</p>
+    <p class="lede">天井里那道光，是这屋子里唯一还在走的东西。</p>
   </header>
 
   <section class="story">
-    <p>天井里的青石板被雨水磨得发亮。灶屋的柴火味还在，堂屋正中那张八仙桌，四条腿已经换过两条。</p>
+    <p class="note">屏幕上只给你四行。这里是它的一百年。</p>
+    <p class="p1">天井里的青石板被雨水磨得发亮。灶屋的柴火味还在，堂屋正中那张八仙桌，四条腿已经换过两条。</p>
     <p>面阔三间、进深两进，穿斗式木构，小青瓦屋面。2019 年落架修缮过一次，梁架与柱础仍是原构件。</p>
+    <p>屋子空下来是近十几年的事。老人走后，门常年半开，只有檐下那串辣椒，每年秋天还会被重新挂上去。</p>
+  </section>
+
+  <section id="look">
+    <h2><span class="n">02</span>细看</h2>
+    <div class="grid">
+      <figure class="wide">
+        <img src="assets/detail_sky.jpg" alt="天井与光柱" data-zoom>
+        <figcaption><b>天井</b>　四水归堂。下雨时四面屋檐的水都落进这一方院子，老话说「肥水不流外人田」。</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/detail_table.jpg" alt="八仙桌" data-zoom>
+        <figcaption><b>八仙桌</b>　四条腿换过两条，桌面还是原来的。一家人围着它吃饭、议事、守岁。</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/detail_base.jpg" alt="柱础与青苔" data-zoom>
+        <figcaption><b>柱础</b>　鼓形石墩，防潮防蛀。青苔爬上去，说明这块石头已经站了很久。</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/detail_eave.jpg" alt="檐下红椒" data-zoom>
+        <figcaption><b>檐下红椒</b>　秋后串起来挂在这里晾，也图个红火。</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/hero.jpg" alt="厅堂全景" data-zoom>
+        <figcaption><b>厅堂</b>　穿斗式梁架，小青瓦。抬头能看见椽子和瓦背。</figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- ============ 声音档案 ============
-       录音放到 assets/audio/story.m4a（或 .mp3），两块都支持。
-       文件不存在时，这一整块会自动隐藏（见页尾脚本），不会出现破图/破播放器。 -->
+       录音放到 assets/audio/story.m4a（或 .mp3），两种都支持。
+       文件不存在时这一块会自动退化成一行提示，不会出现破播放器。 -->
   <section id="audio-block">
-    <h2>声音档案</h2>
+    <h2><span class="n">03</span>听见</h2>
     <div class="audio-card">
       <div class="audio-head">
         <div class="pulse" aria-hidden="true"></div>
@@ -154,40 +264,88 @@
         <source src="assets/audio/story.mp3" type="audio/mpeg">
       </audio>
       <p class="transcript" id="transcript">
-        “那时候一大家子十几口人，天井里摆两张桌子吃饭，落雨天就坐在廊下看檐水……”
+        「那时候一大家子十几口人，天井里摆两张桌子吃饭，落雨天就坐在廊下看檐水……」
       </p>
       <p class="missing" id="audio-missing" hidden>录音还没放进来（<code>assets/audio/story.m4a</code>）。</p>
     </div>
   </section>
 
   <section>
-    <h2>时间线</h2>
+    <h2><span class="n">04</span>年表</h2>
     <ol class="timeline">
       <li>
         <div class="t-year">民国</div>
-        <div class="t-body">建成，面阔三间、进深两进，穿斗式木构。</div>
+        <div class="t-body">建成。面阔三间、进深两进，穿斗式木构，小青瓦屋面。</div>
+      </li>
+      <li>
+        <div class="t-year">1950 年代</div>
+        <div class="t-body">兄弟分家，东西两厢各住一户，天井共用。</div>
+      </li>
+      <li>
+        <div class="t-year">1980 年代</div>
+        <div class="t-body">最后一次大修。八仙桌换了两条腿，其余仍是原物。</div>
       </li>
       <li>
         <div class="t-year">2019-11</div>
         <div class="t-body">落架修缮一次，梁架与柱础仍是原构件；同月建档。</div>
       </li>
+      <li>
+        <div class="t-year">2026</div>
+        <div class="t-body">成为「故土罗盘」的锚点 01，抬头看一眼，屏幕就会告诉你到了。</div>
+      </li>
     </ol>
   </section>
 
   <section>
-    <h2>档案</h2>
+    <h2><span class="n">05</span>档案</h2>
     <dl class="facts">
       <dt>类别</dt><dd>01 · 古厝</dd>
       <dt>年代</dt><dd>民国</dd>
       <dt>建档</dt><dd>2019-11</dd>
-      <dt>结构</dt><dd>穿斗式木构 · 小青瓦屋面</dd>
+      <dt>结构</dt><dd>穿斗式木构 · 小青瓦屋面 · 面阔三间、进深两进</dd>
+      <dt>现状</dt><dd>空置，梁架柱础为原构件，屋面局部更换</dd>
       <dt>坐标</dt><dd>28.200104 N，112.900331 E</dd>
     </dl>
   </section>
 
   <section>
-    <h2>附近还有</h2>
+    <h2><span class="n">06</span>看什么</h2>
+    <div class="objs">
+      <div class="obj">
+        <h3>天井<span>四水归堂</span></h3>
+        <p>四面屋檐围出一方露天。采光、通风、排水都靠它，雨水顺着瓦槽汇进来，再从暗沟排出去。</p>
+      </div>
+      <div class="obj">
+        <h3>穿斗式梁架<span>榫卯</span></h3>
+        <p>不用一根钉子。柱子直接顶住檩条，穿枋把柱子串起来，墙可以薄，甚至不承重。</p>
+      </div>
+      <div class="obj">
+        <h3>柱础<span>鼓形石墩</span></h3>
+        <p>木柱不直接落地，垫一层石头，隔潮、防白蚁。石头上的青苔，是年份的记号。</p>
+      </div>
+      <div class="obj">
+        <h3>八仙桌<span>堂屋正中</span></h3>
+        <p>一方八人，婚丧嫁娶、分家议事都在这张桌子上。桌面被磨出的那层包浆，是几代人手掌的痕迹。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">07</span>到这儿来</h2>
+    <div class="come">
+      <div class="coord">28.200104 N　112.900331 E</div>
+      <p id="dist">正对巷口那扇半开的木门。走到门口，屏幕会响一声「你已到达，沈家老屋」。</p>
+      <div class="btns">
+        <a class="btn solid" href="https://uri.amap.com/marker?position=112.900331,28.200104&name=%E6%B2%88%E5%AE%B6%E8%80%81%E5%B1%8B" target="_blank" rel="noopener">高德地图</a>
+        <a class="btn" href="https://api.map.baidu.com/marker?location=28.200104,112.900331&title=%E6%B2%88%E5%AE%B6%E8%80%81%E5%B1%8B&content=%E6%95%85%E5%9C%9F%E7%BD%97%E7%9B%98%20%E9%94%9A%E7%82%B9%2001&output=html" target="_blank" rel="noopener">百度地图</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">08</span>附近还有</h2>
     <ul class="near">
+      <li class="me">沈家老屋<span>锚点 01 · 古厝</span></li>
       <li>周氏祠堂<span>锚点 02 · 宗祠</span></li>
       <li>村口樟树<span>锚点 03 · 古树</span></li>
       <li>晒谷坪<span>锚点 04 · 场地</span></li>
@@ -198,10 +356,16 @@
 
   <footer>
     <span><b>故土罗盘</b> · 乡村记忆导航</span>
-    <span>扫码于装置现场</span>
+    <span>识别在装置本地完成 · 图像不上传</span>
   </footer>
 
 </div>
+
+<div id="lb" role="dialog" aria-label="图片放大">
+  <button class="close" aria-label="关闭">×</button>
+  <img alt="">
+</div>
+<button id="top" aria-label="回到顶部">↑</button>
 
 <script>
   // 录音没放进来时：藏掉播放器、显示一行提示，版式不至于塌
@@ -209,13 +373,69 @@
     var a = document.getElementById('story-audio');
     var miss = document.getElementById('audio-missing');
     if (!a || !miss) return;
+    var ok = false;
     a.addEventListener('error', function () {
-      a.hidden = true;
+      if (ok) return;
+      a.style.display = 'none';
       miss.hidden = false;
     }, true);
     a.addEventListener('loadedmetadata', function () {
+      ok = true;
       miss.hidden = true;
     });
+    // 有些浏览器不给 error 事件，超时兜底
+    setTimeout(function () {
+      if (!ok && a.readyState === 0) {
+        a.style.display = 'none';
+        miss.hidden = false;
+      }
+    }, 2500);
+  })();
+
+  // 图片放大
+  (function () {
+    var lb = document.getElementById('lb');
+    var big = lb.querySelector('img');
+    function close() { lb.classList.remove('on'); big.src = ''; }
+    document.querySelectorAll('img[data-zoom]').forEach(function (im) {
+      im.addEventListener('click', function () {
+        big.src = im.currentSrc || im.src;
+        big.alt = im.alt || '';
+        lb.classList.add('on');
+      });
+    });
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+  })();
+
+  // 回到顶部
+  (function () {
+    var b = document.getElementById('top');
+    window.addEventListener('scroll', function () {
+      b.classList.toggle('on', window.scrollY > 600);
+    }, { passive: true });
+    b.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+
+  // 如果浏览器允许定位，显示「你离这里多远」
+  (function () {
+    var p = document.getElementById('dist');
+    if (!p || !navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      var R = 6371000;
+      var toRad = function (d) { return d * Math.PI / 180; };
+      var la1 = toRad(pos.coords.latitude), la2 = toRad(28.200104);
+      var dLa = la2 - la1, dLo = toRad(112.900331 - pos.coords.longitude);
+      var a = Math.sin(dLa / 2) * Math.sin(dLa / 2) +
+              Math.cos(la1) * Math.cos(la2) * Math.sin(dLo / 2) * Math.sin(dLo / 2);
+      var d = 2 * R * Math.asin(Math.sqrt(a));
+      var txt = d < 1000 ? Math.round(d) + ' 米' : (d / 1000).toFixed(1) + ' 公里';
+      p.textContent = '你现在离这里大约 ' + txt + '。正对巷口那扇半开的木门，走到门口，屏幕会响一声「你已到达，沈家老屋」。';
+    }, function () { /* 用户不给定位就算了，保留原文 */ }, { timeout: 4000, maximumAge: 60000 });
   })();
 </script>
 </body>
